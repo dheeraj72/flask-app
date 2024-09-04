@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Video Downloader</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .form-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        .form-input {
+            margin-bottom: 10px;
+        }
+        .form-input input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .submit-btn {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            background-color: #5cb85c;
+            color: white;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .submit-btn:hover {
+            background-color: #4cae4c;
+        }
+        input[type="radio"] {
+            font-size: 16px;
+            margin-right: 10px;
+        }
+        label {
+            display: block;
+            margin: 10px 0;
+        }
+        .download-message {
+            margin-top: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+        .video-container {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <form action="/submit" method="post">
+            <div class="form-input">
+                <label for="youtube_url">YouTube URL:</label>
+                <input type="text" id="youtube" name="youtube" required placeholder="Type or paste URL...">
+            </div>
+            <button type="submit" class="submit-btn">Fetch and Find</button>
+        </form>
+        {% if video_id %}
+        <div class="video-container">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/{{video_id}}" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <h2>Select Quality:</h2>
+        <form action="/download" method="post">
+            <input type="hidden" name="video_id" value="{{ video_id }}">
+            <label for="qt1"><input type="radio" name="quality" id="qt1" value="high"> High</label><br>
+            <label for="qt2"><input type="radio" name="quality" id="qt2" value="medium"> Medium</label><br>
+            <label for="qt3"><input type="radio" name="quality" id="qt3" value="low"> Low</label><br>
+            <button type="submit" class="submit-btn">Download now!</button>
+        </form>
+        {% endif %}
+        <div class="download-message">{{ message }}</div>
+    </div>
+</body>
+</html>
